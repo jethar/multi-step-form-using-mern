@@ -2,10 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Form, Button } from "react-bootstrap";
 import csc from "country-state-city";
 import axios from "axios";
-import Swal from "sweetalert2";
-
-import { BASE_API_URL } from "../utils/constants";
 import { motion } from "framer-motion";
+import Swal from "sweetalert2";
+import { BASE_API_URL } from "../utils/constants";
 
 const ThirdStep = (props) => {
   const [countries, setCountries] = useState([]);
@@ -49,7 +48,6 @@ const ThirdStep = (props) => {
           isoCode,
           name,
         }));
-        console.log({ allStates });
         const [{ isoCode: firstState = "" } = {}] = allStates;
         setCities([]);
         setSelectedCity("");
@@ -152,6 +150,7 @@ const ThirdStep = (props) => {
             ))}
           </Form.Control>
         </Form.Group>
+
         <Form.Group controlId="state">
           <Form.Label>State</Form.Label>
           <Form.Control
@@ -173,6 +172,7 @@ const ThirdStep = (props) => {
             )}
           </Form.Control>
         </Form.Group>
+
         <Form.Group controlId="city">
           <Form.Label>City</Form.Label>
           <Form.Control
@@ -192,6 +192,7 @@ const ThirdStep = (props) => {
             )}
           </Form.Control>
         </Form.Group>
+
         <Button variant="primary" type="submit">
           Register
         </Button>
