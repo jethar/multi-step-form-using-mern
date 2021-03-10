@@ -1,13 +1,19 @@
-import React from 'react';
-import { useForm } from 'react-hook-form';
-import { Form, Button } from 'react-bootstrap';
+import React from "react";
+import { useForm } from "react-hook-form";
+import { Form, Button } from "react-bootstrap";
 
 const SecondStep = (props) => {
-  const { register, handleSubmit, errors } = useForm();
+  const { user } = props;
+  const { register, handleSubmit, errors } = useForm({
+    defaultValues: {
+      user_email: user.user_email,
+      user_password: user.user_password,
+    },
+  });
 
   const onSubmit = (data) => {
-    console.log(data);
-    props.history.push('/third');
+    props.updateUser(data);
+    props.history.push("/third");
   };
 
   return (
@@ -21,13 +27,13 @@ const SecondStep = (props) => {
             placeholder="Enter your email address"
             autoComplete="off"
             ref={register({
-              required: 'Email is required.',
+              required: "Email is required.",
               pattern: {
                 value: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
-                message: 'Email is not valid.'
-              }
+                message: "Email is not valid.",
+              },
             })}
-            className={`${errors.user_email ? 'input-error' : ''}`}
+            className={`${errors.user_email ? "input-error" : ""}`}
           />
           {errors.user_email && (
             <p className="errorMsg">{errors.user_email.message}</p>
@@ -42,13 +48,13 @@ const SecondStep = (props) => {
             placeholder="Choose a password"
             autoComplete="off"
             ref={register({
-              required: 'Password is required.',
+              required: "Password is required.",
               minLength: {
                 value: 6,
-                message: 'Password should have at-least 6 characters.'
-              }
+                message: "Password should have at-least 6 characters.",
+              },
             })}
-            className={`${errors.user_password ? 'input-error' : ''}`}
+            className={`${errors.user_password ? "input-error" : ""}`}
           />
           {errors.user_password && (
             <p className="errorMsg">{errors.user_password.message}</p>
