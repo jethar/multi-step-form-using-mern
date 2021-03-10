@@ -1,0 +1,11 @@
+import React from 'react'
+
+export const FirstStep = () => {
+  return (
+    <div>
+      First Step Form
+    </div>
+  )
+}
+
+export default FirstStep;
