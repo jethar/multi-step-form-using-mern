@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { Form, Button } from 'react-bootstrap';
-import csc from 'country-state-city';
-import axios from 'axios';
-import { BASE_API_URL } from '../utils/constants';
+import React, { useState, useEffect } from "react";
+import { Form, Button } from "react-bootstrap";
+import csc from "country-state-city";
+import axios from "axios";
+import { BASE_API_URL } from "../utils/constants";
+import { motion } from "framer-motion";
 
 const ThirdStep = (props) => {
   const [countries, setCountries] = useState([]);
@@ -10,9 +11,9 @@ const ThirdStep = (props) => {
   const [cities, setCities] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const [selectedCountry, setSelectedCountry] = useState('');
-  const [selectedState, setSelectedState] = useState('');
-  const [selectedCity, setSelectedCity] = useState('');
+  const [selectedCountry, setSelectedCountry] = useState("");
+  const [selectedState, setSelectedState] = useState("");
+  const [selectedCity, setSelectedCity] = useState("");
 
   useEffect(() => {
     const getCountries = async () => {
@@ -22,7 +23,7 @@ const ThirdStep = (props) => {
         let allCountries = [];
         allCountries = result?.map(({ isoCode, name }) => ({
           isoCode,
-          name
+          name,
         }));
         const [{ isoCode: firstCountry } = {}] = allCountries;
         setCountries(allCountries);
@@ -33,7 +34,7 @@ const ThirdStep = (props) => {
         setIsLoading(false);
       }
     };
-  
+
     getCountries();
   }, []);
 
@@ -44,18 +45,18 @@ const ThirdStep = (props) => {
         let allStates = [];
         allStates = result?.map(({ isoCode, name }) => ({
           isoCode,
-          name
+          name,
         }));
         console.log({ allStates });
-        const [{ isoCode: firstState = '' } = {}] = allStates;
+        const [{ isoCode: firstState = "" } = {}] = allStates;
         setCities([]);
-        setSelectedCity('');
+        setSelectedCity("");
         setStates(allStates);
         setSelectedState(firstState);
       } catch (error) {
         setStates([]);
         setCities([]);
-        setSelectedCity('');
+        setSelectedCity("");
       }
     };
 
@@ -71,16 +72,16 @@ const ThirdStep = (props) => {
         );
         let allCities = [];
         allCities = result?.map(({ name }) => ({
-          name
+          name,
         }));
-        const [{ name: firstCity = '' } = {}] = allCities;
+        const [{ name: firstCity = "" } = {}] = allCities;
         setCities(allCities);
         setSelectedCity(firstCity);
       } catch (error) {
         setCities([]);
       }
     };
-  
+
     getCities();
   }, [selectedState]);
 
@@ -90,7 +91,12 @@ const ThirdStep = (props) => {
 
   return (
     <Form className="input-form" onSubmit={handleSubmit}>
-      <div className="col-md-6 offset-md-3">
+      <motion.div
+        className="col-md-6 offset-md-3"
+        initial={{ x: "-100vw" }}
+        animate={{ x: 0 }}
+        transition={{ stiffness: 150 }}
+      >
         <Form.Group controlId="country">
           {isLoading && (
             <p className="loading">Loading countries. Please wait...</p>
@@ -152,9 +158,8 @@ const ThirdStep = (props) => {
         <Button variant="primary" type="submit">
           Register
         </Button>
-      </div>
+      </motion.div>
     </Form>
-    
   );
 };
 
