@@ -35,7 +35,14 @@ const AppRouter = () => {
             path="/second"
           />
           <Route
-            render={(props) => <ThirdStep {...props} user={user} />}
+            render={(props) => (
+              <ThirdStep
+                {...props}
+                user={user}
+                updateUser={updateUser}
+                resetUser={resetUser}
+              />
+            )}
             path="/third"
           />
         </Switch>
